@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>게시판</h1>
+    <form action="write_action.html" method="get">
+        제목<input type="text" name="n_title" value="아이스" autofocus required><br>
+        글쓴이<input type="text" name="n_writer" value="엄준식"><br>
+        능력<br>
+        자바 <input type="checkbox" name="n_skills" value="java" checked>
+        디비 <input type="checkbox" name="n_skills" value="db">
+        화면 <input type="checkbox" name="n_skills" value="js" checked>
+        스프링 <input type="checkbox" name="n_skills" value="spring" checked><br>
+        <textarea name="n_content" cols="30" rows="10">ㄱㄱ</textarea>
+        <input type="submit" value="작성">
+    </form>
+</body>
+</html>

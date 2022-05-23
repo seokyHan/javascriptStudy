@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    var v_datas = [];
+    for(var i=1; i<=108; i++){    // 108번뇌!!
+        var v_gul = {};           // 글 묶음을 위한 바구니 빈 객체
+        v_gul.id = i;
+        v_gul.title = "제목이얌 " +i;    // 객체의 속성으로 마구 붙여줌
+        v_gul.writer = "주열짱 " + i;
+        v_gul.skills = ["java"+ i,"js"+i,"spring"+i];
+        v_gul.content = "넘 빨라서 미치겠어용" + i;
+        v_datas.push(v_gul);
+    }
+    localStorage.setItem("gesiTable",JSON.stringify(v_datas)); // 로컬스토리지에 저장
+</script>

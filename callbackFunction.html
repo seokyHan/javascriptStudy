@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function f_sangwoo(p_arg){
+
+            // if(p_arg >= 10){
+            //     alert('아이스');
+            // }else{
+            //     alert('아메리카노');
+            // }
+
+            // 위에거랑 똑같음
+            if(p_arg >= 10){
+                alert('아이스');
+                return;
+            }
+            alert('아메리카노');
+            
+            //return; // 이게 생략되어 있다고 생각하면 편함
+            // 함수 종료 기능도 가지고 있음
+        }
+
+        alert(f_sangwoo(5)); // 아메리카노 출력하고 undefinded 출력
+
+        //클로져 -> 지역변수의 Scope(범위)가 확장되서 안죽고 살아있음
+        let f_closure = function(){
+            let v_local = '아이스 아메리카노';
+            return function(){
+                return v_local;
+            }
+        }
+
+        let f_innerFnc = f_closure();
+        alert(f_innerFnc());
+
+        // callback 말 그대로 뒤에 부른다고 해서 callback
+        // 동기/비동기와 상관 없음
+        let f_daughter = function(){
+            alert('아이스');
+        }
+        /*
+        let f_mother = function(){
+            alert('아메리카노');
+            f_daughter(); //사용이 제한되어 있는 콜백함수(좋지않은 방법)
+        }*/
+
+        // 함수가 매개변수로 함수포인터를 받아서 그 함수를 실행시키면
+        // 그 함수가 콜백함수임
+        let f_mother = function(p_callback){
+            p_callback();
+            alert('아메리카노');
+        }
+
+        f_mother(f_daughter);
+        f_mother(function(){
+            alert("카페라떼"); //mother가 먼저 실행되고 그뒤에 카페라떼가 실행됨
+        });
+
+    </script>
+</body>
+</html>

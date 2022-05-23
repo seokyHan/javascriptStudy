@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="눌러보쇼" id="id_ajax">
+    <div id="display"></div>
+
+    <script>
+        // 반복되는 부분이 많고 실제 값이 필요한 부분은 몇개안되니 일반화 하고픔(DRY)
+        // 자바스크립트에선 namespace(자바의 package)개념이 없음 module개념은 있음
+        var System = {};
+        System.out = {};
+        System.out.println=function(msg){
+            document.write(msg);
+        }
+
+        System.out.println("<h1>신기방기하네</h1>")
+
+
+        var $ = {}; //빈객체를 많이 이용(namespace만드려고)
+        $.ajax = function(p_set){
+            let v_ajax = new XMLHttpRequest();
+            v_ajax.open(p_set.method, p_set.url ,true);
+            v_ajax.onreadystatechange = function(){
+                if(v_ajax.readyState == 4 && v_ajax.status == 200){
+                    if(p_set.dataType == 'json'){
+                        p_set.success(JSON.parse(v_ajax.responseText));
+                    }else if(p_set.dataType == 'xml'){
+                        p_set.success(v_ajax.responseXML);
+                    }else{
+                        p_set.success(v_ajax.responseText);
+                    }
+                }
+            }
+            v_ajax.send();
+        }
+
+        //함수안에 매개변수로 객체(json)를 넘겨줌
+        $.ajax({
+            method: 'get',
+            url: 'testFile.txt',
+            dataType: 'json',
+            success: function(result){
+                console.log(result[0].name);
+            }
+        });
+
+
+        const btnAjax = document.querySelector("#id_ajax");
+        const display = document.querySelector('#display');
+
+        const f_ajax = function(){
+            let v_ajax = new XMLHttpRequest();
+            v_ajax.open('get','testFile.txt',true);
+            v_ajax.onreadystatechange = function(){
+                if(v_ajax.readyState == 4 && v_ajax.status == 200){
+                    display.innerHTML = "<h1>" + v_ajax.responseText + "</h1>";
+                }
+            }
+            v_ajax.send();
+        }
+
+        btnAjax.addEventListener('click', f_ajax);
+
+    </script>
+</body>
+</html>

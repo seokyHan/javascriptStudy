@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" id="id_diff" value="눌러봐">
+
+    <script>
+        function f_this(a,b){
+            console.log(this,a,b);
+        }
+        // this가 가리키는 값이 상황에 따라 바뀐다는 불만에
+        // 직접 this를 세팅할 수 있는 3개의 method를 제공
+        // call, bind, apply - bind가 특히 중요
+
+        let v_obj = {
+            name : '아이스'
+        }
+        v_obj.huk = f_this;
+
+        v_obj.huk(); // 아이스 출력
+        v_obj.huk.call(window); //window 출력 this가 뭘하는지 따지지 말고 넘기고 object값 넘겨라
+        v_obj.huk.call(document,'a','b'); //document 출력 매개변수를 넘기려면 2번째부터 세팅 this는 document를 가리킴
+        
+        // apply는 call과 똑같으나, 매개변수를 배열에 담아서 보내야함
+        let arr = ['a','b'];
+        v_obj.huk.apply(window); 
+        v_obj.huk.apply(document,['a','b']); 
+        v_obj.huk.apply(document,arr); // 이렇게도 가능 
+
+        let btn = document.querySelector('#id_diff');
+        
+        let fclick = function(p_name, p_insa){
+            console.log(this);
+            alert(p_name + "님" + p_insa);
+        }
+
+        let obj3 = {
+            name:'아이스'
+        }
+
+        // call과 비슷한데 call은 함수를 바로 실행시키지만
+        // bind는 함수를 바로 call하지 않고, 새로운 함수를 내부적으로 만들어서 함수 포인터를 리턴해줌
+        // 새로운 함수를 내부적으로 만들어줌
+        // fclick은 괄호를 붙인순간 실행되기때문에 함수 포인터밖에 못오지만 매개변수를 넘겨서 보내려면 아래처럼
+        btn.addEventListener('click',fclick.bind(obj3,'아이스','아메리카노'));
+        
+
+        
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #ball{
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-image: url('./images/ball.jfif');
+        background-size: 100px 100px;
+        border-radius: 50%;
+    }
+    #stop{
+        position: absolute;
+        right: 50px;
+        top: 80px;
+    }
+    #btn{
+        position: absolute;
+        right: 50px;
+        top: 50px;
+
+    }
+</style>
+<body>
+    <input type="button" value="굴러!" id="btn">
+    <input type="button" value="멈춰!" id="stop">
+    <div id="ball"></div>
+
+    <script>
+        const btn = document.querySelector('#btn');
+        const ball = document.querySelector('#ball');
+        const ballStop = document.querySelector('#stop');
+        const viewWidth = window.innerWidth;
+        const viewHeight = window.innerHeight;
+        let width = 10; //수평 움직임
+        let height = 10; //수직 움직임
+        let gak = 0; //각도값;
+        let isStart = false;
+        let timer = null;
+                
+        const proxy = function(){
+            if(!isStart){
+                start();
+                isStart = true;
+            }
+        }
+
+        // #ball영역에 style left속성이 없어서 아무것도 출력안됨 그래서 초기화
+        const start = function(){
+            if(!ball.style.left){ //초기화 문자열은 공백일경우 false
+                ball.style.left = '0px';
+                ball.style.top = '20px';    
+            }
+            gak = (gak + 10) % 360;
+            ball.style.transform = 'rotate('+ gak +'deg)';
+            ball.style.left = parseInt(ball.style.left) + width + 'px';
+            let ballRight = parseInt(ball.style.left) + 100;
+            let ballLeft = parseInt(ball.style.left);
+
+            ball.style.top = parseInt(ball.style.top) + height + 'px';
+            let ballBottom = parseInt(ball.style.top) + 100;
+            let ballTop = parseInt(ball.style.top);
+
+            if(ballLeft <= 0 || ballRight >= viewWidth){ //왼쪽 또는 오른쪽
+                width = -width
+            }
+
+            if(ballTop <= 0 || ballBottom >= viewHeight){ //위 또는 아래
+                height = -height
+            }
+
+           timer = setTimeout(start,20);
+        }
+
+        const stop = function(){
+            if(timer){
+                clearTimeout(timer);
+                timer = null;
+                isStart = false;
+            }
+        }
+
+        btn.addEventListener('click',proxy);
+        window.addEventListener('resize',function(){ //사이즈가 변경되면 값을 다시 가져와
+            viewWidth = window.innerWidth;
+            viewHeight = window.innerHeight;
+        });
+        ballStop.addEventListener('click',stop);
+        //http://192.168.144.27:8880/jsstudy/
+    </script>
+</body>
+</html>

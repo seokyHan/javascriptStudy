@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        function a() //함수 선언 문법
+        var a = function(){ // 함수 표현식
+            return "카페라떼";
+        }
+
+        //"use strict"; 
+        //var v_roze = "아아"; 
+        window.v_roze = "아아"; // 위에거랑 똑같음. 우리가 선언하는 전역변수는 다 window객체의 속성이 됨
+
+        //alert(v_roze);
+
+        function f_check(){
+            console.log(this);
+            // 스크립트에선 프로그램 context(맥락, 흐름)에 따라 this가 가리키는 값이 바뀌어 버림.
+            // this 컨트롤 call,bind,apply를 공부할 것
+        }
+        
+        f_check(); // window 출력
+
+        var v_obj = {
+            name : "아이스 아메리카노"
+        };
+        v_obj.myMethod = f_check;
+        v_obj.myMethod(); // 아이스 아메리카노 출력
+        
+    </script>
+</body>
+</html>

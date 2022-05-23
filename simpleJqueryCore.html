@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="sa">a</div>
+    <div class="sa1">b</div>
+    <div class="sa">c</div>
+    <div class="sa">d</div>
+    <div class="sa">e</div>
+
+    <script>
+        //즉시 실행함수
+        (function(){        
+            const $ = function(selector){
+                return new myDom(selector);
+            }
+        
+            const myDom = function(selector){
+                let elems = document.querySelectorAll(selector);
+                //핵심은 가져온 걸 객체 속성에 옮겨담음
+                this.length = elems.length;
+                for(let i=0; i<elems.length; i++){
+                    this[i] = elems[i];
+                }
+                return this;
+            }
+            //전역변수가 됨 같은곳을 가리키기 때문
+            window.$ = $;
+            $.fn = myDom.prototype; // 즉각실행함수 밖에서도 메서드를 추가할 수 있음
+            //MyDom에 메서드를 추가하려면 현재는 여기에서만 해야함
+            //myDom.prototype.myMethod1 = function()
+        })();
+
+        //myDom에 나만의 메서드 추가 (jQuery에선 plugin개발이라고 부름)
+        $.fn.eq = function(index){
+            this[0] = this[index];
+            for(let i=1; i < this.length; i++){
+                delete this[i]; // 다 지움
+            }
+            this.length = 1;
+            return this; //메서드 체이닝을 위해서
+        }
+
+        $.fn.forEach = function(callback){
+            for(let i=0; i<this.length; i++){
+                callback(i,this[i]);
+            }
+            return this;
+        }
+
+        const sel = $('.sa').forEach(function(index,val){
+           if(val.innerHTML == "d"){
+               val.innerHTML="<h1>김유신 수업잘듣자</h1>"
+           } 
+           if(index == 0){
+
+           }
+        }).eq(0);
+
+
+        // let sa = new myDom('.sa');
+        // console.log($('.sa').eq(1).eq(0).eq(0).eq(0).eq(0).eq(0).eq(0));
+        // console.log($('.sa1').eq(1).eq(0).eq(0).eq(0).eq(0).eq(0));
+    </script>
+</body>
+</html>

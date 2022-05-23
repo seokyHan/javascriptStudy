@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<script src="./jsp.js"></script>
+</head>
+<body>
+<h1>잔소리 게시판</h1>
+<form action="write_action.html" method="get">
+    제목 <input type="text" name="n_title" value="잔소리" autofocus required><br>
+    글쓰니 <input type="text" name="n_writer" value="꽉수밍"><br>
+    글쓰니 능력<br>
+    자바<input type="checkbox" name="n_skills" value="java" checked>
+    디비<input type="checkbox" name="n_skills" value="db">
+    화면<input type="checkbox" name="n_skills" value="js" checked>
+    스프링<input type="checkbox" name="n_skills" value="spring"><br>
+    <textarea name="n_content" cols="30" rows="10">답변은 짱</textarea><br>
+    <input type="submit" value="써저랑">
+</form>
+<hr>
+<a href="list.html">괘니 리스트로 가용</a>
+<script>
+    var v_gid = request.getParameter("gid");
+    var v_datas = JSON.parse(localStorage.getItem("gesiTable"));
+    for(var i=0; i<v_datas.length; i++){
+        if(v_datas[i].id == v_gid){  // 해당 글을 찾아서
+            document.querySelector("input[name=n_title]").value = v_datas[i].title;
+            document.querySelector("input[name=n_writer]").value = v_datas[i].writer;
+            document.querySelector("input[name=n_content]").value = v_datas[i].content;
+            break;
+        }
+    }
+</script>    
+</body>
+</html>

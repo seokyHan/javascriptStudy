@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #id_disp{
+            width: 300px;
+            height: 300px;
+            border:2px solid pink;
+        }
+        div{
+            border: 2px solid black;
+        }
+        #id_grandma{
+            width: 300px;
+            height: 300px;
+        }
+        #id_mom{
+            width: 200px;
+            height: 200px;
+        }
+        #id_son{
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="id_grandma" onclick="f_grand()">조상
+        <div id="id_mom" onclick="f_moo()">부모
+            <div id="id_son" onclick="f_son()">자식</div>
+        </div>
+    </div>
+
+    <script>
+        function f_grand(){
+            event.stopPropagation(); // 이벤트 버블링=> 이벤트 캡쳐링
+            alert('나 조상!');
+        }
+        function f_moo(){
+            alert('나 부모!');
+        }
+        function f_son(){
+            event.stopPropagation(); // 부모와 조상도 호출되는 이벤트 막기
+            alert('나 자식!');
+        }
+    </script>
+    
+    <div id="id_disp"></div>
+    <!-- <a href="http://naver.com" onclick="f_ck();">가자</a> -->
+    
+    
+    <script>
+        function f_ck(){
+            event.preventDefault(); //원래기능(built-in) 기능을 막음 alert만 출력
+            alert('이 다음에 무슨일이 일어나요?');
+        }
+        // 꼭 기억해야 하는 event객체의 메서드
+        // event.preventDefault();
+        // event.stopPropagation();
+    </script>
+</body>
+</html>

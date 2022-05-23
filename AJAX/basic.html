@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <form action=""> form에서는 get/post밖에 못쓰는데 다른걸 보내려면 input 타입 hidden으로 value에 담아서 보냄
+        <input type="hidden" name="method" value="put"> 
+    </form> -->
+    <script>
+        /* get post put delete patch option*/
+        let v_ajax = new XMLHttpRequest(); // 통신 대신해줄 변수
+        v_ajax.open('get', 'testFile.txt', true); // 시킬일. 지정 같은도메인에 같은 폴더가 있어서 파일명만 적어도 됨
+        v_ajax.onreadystatechange = function(){ // 연락 모니터링
+            // 우린 중간과정은 관심없고, 통신이 잘 끝난것만 관심있음
+            if(v_ajax.readyState == 4 && v_ajax.status == 200){
+                //responseText 속성에 서버가 돌려준 값이 담겨져서 옴
+                //ajax로 받으면 데이터를 다시 가공할 수 있음
+                console.log(v_ajax.responseText.substring(0,3));
+            }
+        }
+        v_ajax.send(); //실행
+        console.log('카페라떼'); //이게 먼저찍히고 아이스아메리카노가찍힘 이유는 비동기라서,, 동기라면 위에게 먼저찍히는게 맞음
+    </script>
+</body>
+</html>

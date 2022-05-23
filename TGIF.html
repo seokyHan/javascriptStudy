@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<link rel="shortcut icon" href="https://t1.daumcdn.net/cfile/tistory/163E1C4550DCF38028" type="image/x-icon">
+    <title>과연 즐건 금요일?</title>
+<style>
+    #wrapper {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        background-color:lightpink;
+    }
+    .cl_char {
+        position: absolute;
+        font-size: 3em;
+        font-weight: bold;
+        color:rgb(100,150,200);
+    }
+</style>    
+</head>
+<body>
+    <div id="wrapper"></div>
+<script>
+    /*
+      과거 한때 JavaScript를 한다 하는 사람이면 이 정도는 만들 수 있어야지 했던
+      바로 그 마우스 글자 따라 다니깅... 
+    */
+    var v_msg = "**♡♡404호♡♡ 오늘♡보강♡ 없어용 ♡♡**";
+    var v_chars = v_msg.split("");
+    var v_posX=[];
+    var v_posY=[];
+    var v_gapX = 40;
+    var v_wrap = document.querySelector("#wrapper");
+    var v_msX;
+    var v_msY;
+
+    for(var i=0; i<v_chars.length; i++){
+        v_posX[i] = -100;
+        v_posY[i] = -100;
+
+        var v_charDiv = document.createElement("div");
+        v_charDiv.setAttribute("id","id_char"+i);
+        v_charDiv.setAttribute("class","cl_char");
+        v_charDiv.innerHTML = v_chars[i];
+        v_wrap.appendChild(v_charDiv);
+    }
+
+    function f_loop(){
+        v_posX[0] = v_msX + v_gapX;
+        v_posY[0] = v_msY;
+
+        /* 아래 for문을 주석처리하고 위 for문을 주석해제 해 보세요
+        for(var i=1; i< v_chars.length; i++){
+            v_posX[i] = v_posX[i-1] + v_gapX;
+            v_posY[i] = v_posY[i-1];
+        }
+        */
+
+        /* 아래 for문을 주석처리하고 위 for문을 주석해제 해 보세요 */
+        for(var i=v_chars.length-1; i>=1; i--){
+            v_posX[i] = v_posX[i-1] + v_gapX;
+            v_posY[i] = v_posY[i-1];
+        }
+
+
+        for(var i=0; i<v_chars.length; i++){
+            var v_char = document.getElementById("id_char" +i);
+            v_char.style.left = v_posX[i] + "px";
+            v_char.style.top = v_posY[i] + "px";
+            v_char.style.color = f_ranColor();
+            v_char.style.fontSize = Math.ceil(Math.random()*3)+"em";
+        }
+
+        setTimeout(f_loop,50);
+    }
+
+    var _f_mvMouse = function(){
+       v_msX = event.clientX;
+       v_msY = event.clientY;
+    }
+
+
+    var f_ranColor = function(){
+         return "rgb(" + Math.floor(Math.random()*256) 
+                 + "," + Math.floor(Math.random()*256)
+                 + "," + Math.floor(Math.random()*256)
+                 + ")"
+    }
+
+    window.addEventListener("load",f_loop);
+    v_wrap.addEventListener("mousemove",_f_mvMouse);
+ 
+</script>
+</body>
+</html>

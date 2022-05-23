@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        //같은 키 입력시 덮어씀
+        localStorage.setItem('아이스','아메리카노');
+        localStorage.setItem('카페','라떼');
+        localStorage.setItem('집','가고싶다');
+
+        localStorage.setItem('메롱','약오르징'); //카페 삭제
+        console.log(localStorage.key(0)); //해당 index의 key값
+        console.log(localStorage.length);
+        localStorage.key="하이";
+        */
+
+        let v_datas = []; //더미데이터용 배열
+        
+        for(let i=1; i<=20; i++){
+            let v_obj = {};
+            v_obj.name = '아이스'+i;
+            v_obj.alias = '아메리카노'+i;
+            v_datas.push(v_obj) //배열안에 담기때문에 메모리 누수 안일어남
+        }
+
+        //localStorage는 문자열밖에 저장하지 못함
+        localStorage.setItem('Ice-Americano', JSON.stringify(v_datas)); //객체 저장시도
+
+        let storedData = JSON.parse(localStorage.getItem("Ice-Americano")); //읽어와서
+		storedData[12].alias = '바꿔'; //수정하고
+        localStorage.setItem('Ice-Americano', JSON.stringify(storedData)); //다시 덮어씌움
+
+        // 객체지향 DB는 비정형데이터에 적합하다(컬럼갯수, 타입등의 변화에 대응이 자연스럽다)
+        // MongoDB가 유명
+        
+        
+        
+
+    </script>
+</body>
+</html>

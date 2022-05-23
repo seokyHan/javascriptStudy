@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="ice">아이스 아메리카노</div>
+    <script>
+        // 자바스크립트에서 문자열은 기본형(primitive)인데 .이 붙는순간 자동으로 wrapper클래스로 전환됨(객체)
+        // alert('아이스 아메리카노'.substring(0.5));
+        
+        // // let ice = document.querySelector('#ice').innerHTML;
+        // // ice = '<h1>카페라떼</h1>';
+        // //innerHTML값이 문자열이기 때문에 값만 복사되어있어서 바뀌지 않음 아래처럼 객체방식으로 설정해야함
+        // let ice = document.querySelector('#ice');
+        // ice.innerHTML = '<h1>카페라떼</h1>';
+
+        // // 즉시 실행함수
+        // // 딱 1번만 실행이 필요한 내용을 함수로 만들고 싶지 않아서.. 메모리 절약
+        // // 중요한 핵심 코드를 묶으면 중요함이 표시됨
+        // // 라이브러리 코드에서 한번씩 보임(일반적으로 잘 안보임)
+        // (function(parm){
+        //     alert('난 누구인가?' + parm);
+        // })('엄준식');
+
+        let common = function(arr, callback){
+            for(let i=0; i<arr.length; i++){
+                callback(i,arr[i],arr);
+            }
+        }
+
+        let arr = ['명진','관우','한범','소망','세준'];
+        let each = function(index, val){
+            alert(index + " : " + val);
+        }
+
+        common(arr,function(index, val, err){
+            if(val == '관우'){
+                err[index] = "바보바보" //관우 일때 관우 자리가 바보바보로 바뀜
+            }
+        });
+    </script>
+</body>
+</html>

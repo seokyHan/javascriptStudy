@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="area"></div>
+    <script>
+        var v_grade = {
+            ["grade1"]:"사장", // 이렇게도 가능
+            grade2:"바지사장",
+            grade3:"집게사장",
+            grade4:"우리사장",
+        }
+
+        var v_sawons = [
+            {name:"로제", level:"grade1"},
+            {name:"제니", level:"grade2"},
+            {name:"리사", level:"grade3"},
+            {name:"지수", level:"grade4"},
+        ];
+        /*
+            이름    직책
+            로제    사장
+            제니    바지사장
+            리사    집게사장
+            지수    우리사장
+        */
+
+        let table = "<table border=1>";
+        table += "<tr><th>이름</th><th>직책</th></tr>";
+        for(var i=0; i<v_sawons.length; i++){
+            table += "<tr>";
+            table += "<td>" + v_sawons[i].name + "</td>";
+            table += "<td>" + v_grade[v_sawons[i].level] + "</td>";
+            table += "</tr>";
+        }
+        table += "</table>"
+        document.getElementById('area').innerHTML = table;
+        
+    </script>
+</body>
+</html>

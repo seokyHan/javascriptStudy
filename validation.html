@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- tabindex=0은 div에 포커스 줄때 사용 -->
+    <div id="nofocus" tabindex="0"></div>
+    <script>
+        let a = document.querySelector('#nofocus');
+        a.addEventListener('keydown', function(){
+            alert(event.key); // 무슨키 눌렀는지
+        });
+    </script>
+
+    <form action="">
+       1 <input type="text" value="" required autofocus><br>
+       전화번호 <input type="text" value="" required pattern="[0-9]{3}[0-9]{3,4}[0-9]{4}" placeholder="010-xxxx-xxxx"><br>
+       3 <input type="text" value="" required><br>
+       4 <input type="text" value="" required><br>
+       <input type="submit" value="전송">
+    </form>
+</body>
+</html>

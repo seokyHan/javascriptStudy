@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모바일에서 많이 쓰는 기능</title>
+</head>
+<body>
+    <div id="wrapper">
+        <h1>스크롤1</h1>
+        <h1>스크롤2</h1>
+        <h1>스크롤3</h1>
+        <h1>스크롤4</h1>
+        <h1>스크롤5</h1>
+        <h1>스크롤6</h1>
+        <h1>스크롤7</h1>
+        <h1>스크롤8</h1>
+        <h1>스크롤9</h1>
+        <h1>스크롤10</h1>
+        <h1>스크롤11</h1>
+        <h1>스크롤12</h1>
+        <h1>스크롤13</h1>
+        <h1>스크롤14</h1>
+        <h1>스크롤15</h1>
+        <h1>스크롤17</h1>
+        <h1>스크롤18</h1>
+        <h1>스크롤19</h1>
+        <h1>스크롤20</h1>
+        <h1>스크롤21</h1>
+        <h1>스크롤22</h1>
+    </div>
+
+<script>
+    setTimeout(function(){
+        window.scrollTo(0,0); //x축,y축
+    },10)
+
+    let v_tuning = 50; // 이 값으로 바닥에서 떨어진 포인트 상대적 지정
+    let v_number = 1000; 
+    const v_wrapper = document.querySelector('#wrapper');
+    const f_scroll = function(){
+        let scrollTop = document.documentElement.scrollTop;
+        let clientHeight = document.documentElement.clientHeight;
+        let scrollHeight = document.documentElement.scrollHeight;
+        // 스크롤바가 맨바닥에 있으면 scrollTop + clientHeight = scrollHeight
+
+        if((scrollTop + clientHeight) >= (scrollHeight - v_tuning)){ // 바닥 치기전에 alert
+            for(let i=1; i<=10; i++){
+                //실질적으로 사용할떈 여기에 ajax가 와야함
+                const v_h1 = document.createElement('h1');
+                v_h1.innerHTML = '아이스 아메리카노' + v_number++;
+                v_wrapper.appendChild(v_h1);
+            }
+        }
+
+    }
+    window.addEventListener('scroll',f_scroll);
+
+</script>
+</body>
+</html>

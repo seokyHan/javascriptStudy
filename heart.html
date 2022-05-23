@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 200px;
+            height: 200px;
+        }
+        #id_heart{
+            position: relative;
+            /* border: 1px solid black; */
+            overflow: hidden;
+            transform: rotate(45deg);
+            transform-origin: center top;
+            left: 100px;
+        }
+        #id_right{
+            position: absolute;
+            /* border: 1px solid blue; */
+            background-color: red;
+            border-radius: 50%;
+            left: 100px;
+        }
+        #id_bottom{
+            position: absolute;
+            /* border: 1px solid blue; */
+            background-color: red;
+            border-radius: 50%;
+            top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="돌려!" id="lol">
+    <input type="button" value="클로닝" id="clone">
+    <div id="id_heart">
+        <div id="id_right"></div>
+        <div id="id_bottom"></div>
+    </div>
+    <script>
+        const lol = document.querySelector('#lol');
+        const clone = document.querySelector('#clone');
+        const heart = document.querySelector('#id_heart');
+        let gak = 0;
+
+        const f_clone = function(){
+            let copy = heart.cloneNode(true);// 노드복사 얕은복사 true 붙이면 자식까지 다 복사
+            document.body.appendChild(copy)
+        }
+
+        function f_lol(){
+            gak = (gak + 10) % 360;
+            heart.style.transform = "rotate("+ gak +"deg)";
+            setTimeout(f_lol,300);
+        }
+        lol.addEventListener('click', f_lol);
+        clone.addEventListener('click', f_clone);
+    </script>
+</body>
+</html>

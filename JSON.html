@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 데이터 전송포맷으로 많이 사용하는 것은 속성만 가진 객체
+        var name = "kgb";
+        // 객체의 key(속성)값은 자동으로 문자열로 처리됨
+        let v_obj1 = {
+            name : name, 
+            merit : "dance",
+            huk: function(p_msg){ //객체 안의 함수로 메서드라고 불림
+                alert(p_msg);
+            }
+        }; // new Object()의 리터럴 표현, static
+        
+
+
+        console.log(v_obj1.name); //kgb 출력
+        console.log(v_obj1.huk("잔소리")) //잔소리 출력
+
+        var v_obj2 = {} //빈 객체 생성
+        v_obj2["name"] = "아이스"; // 이방식이 좀 더 빠름. 잘 알아둬라
+        //v_obj2.name = "아이스";  이렇게도 가능
+        v_obj2["merit"] = "아메리카노";
+        //v_obj2.merit = "아메리카노";
+        //v_obj2.0 = "카페라떼";  자바스크립트 숫자로 변수명을 못지어서 불가능
+        v_obj2["0"] = "카페라떼"; // 이건 가능
+
+        var v_magu = "마구";
+        v_obj2[v_magu] = "카페라떼" // -> v_obj2["마구"] = "카페라떼"
+
+        v_obj2.huk = function(p_msg){
+            console.log(p_msg);
+        }
+        v_obj2.huk("먹고싶다");
+
+
+
+        // 메모리 누수 발생
+        var v_obj1 = {na:"이한범"};
+        v_obj1 = {na:"표주열"}; // 위에 선언해놓은 객체를 찾을 방법이 없음
+
+        let v_arr = []; // new Array()의 리터럴 표현
+    </script>
+</body>
+</html>

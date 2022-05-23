@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jsp.js"></script>
+    <style>
+        .active{
+            color:red;
+            font-size: 2em;
+        }
+    </style>
+</head>
+<body>
+    
+<script>
+    
+    // 그냥 배열 꺼내서 table형식으로만 뿌려주면 됨
+    let v_datas = JSON.parse(localStorage.getItem('gesiTable'));
+
+    var v_curPage = 1; //그냥 1페이지
+    if(request.getParameter('curPage')){
+        v_curPage = request.getParameter('curPage');
+    }
+
+    var v_cntPerP = 10; //페이지당 글 몇개?
+    var v_totalPage = Math.ceil(v_datas.length / v_cntPerP);
+    var v_startNum = (v_curPage - 1) * v_cntPerP; // 2page는 10부터
+    var v_endNum = v_startNum + v_cntPerP; //해당페이지의 배열 마지막 index
+    if(v_endNum >= v_datas.length){ //마지막 페이지는 갯수가 모자랄수도 있음
+        v_endNum = v_datas.length;
+    }
+
+
+    let v_tblStr = '<table border=2>';
+        v_tblStr += '<tr><th>넘버</th><th>글제목</th><th>지은이</th><th>스킬</th><th>삭제</th></tr>';
+        for(let i=v_startNum; i < v_endNum; i++){
+            v_tblStr += '<tr>';
+                v_tblStr += '<td>' + i + '</td>';
+                // 보통은 고유 key값을 주는 것이 좋은데 여기서는 그냥 index번호로
+                v_tblStr += "<td><a href='read.html?gid=" + i + "'>" + v_datas[i].title + "</a></td>";
+                v_tblStr += '<td>' + v_datas[i].writer + '</td>';
+                v_tblStr += '<td>' + v_datas[i].skills + '</td>';
+                v_tblStr += "<td><input type=checkbox class='chk' name=nm_del value="+v_datas[i].id+"></td>";
+                v_tblStr += '</tr>';
+            }   
+    v_tblStr += '</table>';
+    v_tblStr += "<input type=button id='deleteBtn' value='선택된거삭제'><br>";
+    v_tblStr += "<a href=write.html>글 쓰깅</a><br>";
+    for(let i = 1; i <= v_totalPage; i++){
+        if(i==v_curPage){
+            v_tblStr += "<a class=active href=list.html?curPage="+i+">"+ i +"</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+        }else{
+            v_tblStr += "<a href=list.html?curPage="+i+">"+ i +"</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+        }
+    }
+    out.print(v_tblStr);
+    
+    
+    // 선택된거만 삭제하고 다시 리스트 힌트:배열 메서드 splice
+    const deleteBtn = document.querySelector('#deleteBtn');
+    const chkList = document.getElementsByName('nm_del');
+    
+    const deleteItem = function(){
+        for(let i = 0; i < chkList.length; i++){
+            if(chkList[i].checked){
+                for(let j = 0; j < v_datas.length; j++){
+                    if(v_datas[j].id == chkList[i].value){
+                        v_datas.splice(j,1);
+                        break;
+                    }
+                }
+            }
+        }
+        localStorage.setItem('gesiTable',JSON.stringify(v_datas));
+        location.replace("list.html");
+    }
+    deleteBtn.addEventListener('click', deleteItem);
+
+
+</script>
+
+</body>
+</html>

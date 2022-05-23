@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //자바스크립트에서 function 키워드는 함수의 의미로도 쓰이지만 class(생성자)의 의미로도 쓰임
+        const myArray = function(){
+            this.length = 0; //length속성 부여, 초기값 0
+            return this; // 명시적으로 객체를 리턴함을 표시(생략 가능)
+        }
+
+        myArray.prototype.push = function(arg){ // 메서드는 prototype에 선언해야 메모리가 절약
+            this[this.length] = arg;
+            this.length++;
+            return this; // 메서드체이닝을 위해
+        }
+        myArray.prototype.sort = function(arg){
+            if(!arg){
+                for(let i=0; i < this.length; i++){
+                    for(let j=i+1; j < this.length; j++){
+                        if(this[i] > this[j]){
+                            let temp = this[i];
+                            this[i] = this[j];
+                            this[j] = temp;
+                        }
+                    }
+                }
+                return this;
+            }
+            for(let i=0; i < this.length; i++){
+                for(let j=i+1; j < this.length; j++){
+                    if(arg(this[i],this[j]) > 0){
+                        let temp = this[i];
+                        this[i] = this[j];
+                        this[j] = temp;
+                    }
+                }
+            }
+            return this;
+        }
+
+        
+        let temp = new myArray(); // 객체 생성(Object vs Instance)
+        
+        for(let i=1; i < 10; i++){
+            temp.push(Math.ceil(Math.random()*100));
+        }
+
+        console.log(temp.sort(function(a,b){
+            return a-b;
+        }));
+
+        console.log(temp.sort(function(a,b){
+            return b-a;
+        }));
+
+        // let result = temp.push(272).push(337).sort().push(888).sort();
+        // console.log(result);
+        
+        // console.log(temp);
+        // temp.sort();
+        // console.log(temp);
+    </script>
+</body>
+</html>

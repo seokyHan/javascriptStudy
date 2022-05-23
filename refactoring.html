@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //refactoring(리팩토링) 결국은 정리
+
+        let isRepeat = function(p_arr, p_val){
+            for(let i=0; i<p_arr.length; i++){
+                if(p_arr[i] == p_val){
+                    return true; //같은게 있을때
+                }
+            }
+            return false; //같은게 없을때
+        }
+
+        let v_lotto = [];
+        while(1){
+            var v_ran = Math.ceil(Math.random() * 45); // 1~45
+
+            if(!isRepeat(v_lotto, v_ran)){
+                v_lotto.push(v_ran);
+            }
+            //중복체크 로직->중요
+            // let v_isIn = false; //없다고 가정
+            // for(let i=0; i<v_lotto.length; i++){
+            //     if(v_lotto[i] == v_ran){
+            //         v_isIn = true;
+            //         break;
+            //     }
+            // }
+
+            // // false일때만 배열에 담음
+            // if(!v_isIn){
+            //     v_lotto.push(v_ran);
+            // }
+
+            if(v_lotto.length == 6){ // 6개 다 차면
+                break;               // 끝
+            }
+        }
+        alert('발생한 로또번호는' + v_lotto);
+    </script>
+</body>
+</html>

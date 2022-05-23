@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .mothder{
+            position: relative;
+        }
+        .child{
+            position: absolute;
+            border: 5px groove black;
+            width: 210px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- position absolute는 무조건 layer로 붕뜸
+        z-index값이 크면 무조건 앞쪽
+    -->
+    <input type="button" value="<" id="id_btn1">
+    <input type="text" id="id_disp" value="">
+    <input type="button" value=">" id="id_btn2"><br><br>
+
+    <div id="mother" class="mother">
+        <div id="roze1" class="child">
+            <img src="./images/amovie2.jpg" width="100" height="100">
+            <img src="./images/amovie3.jpg" width="100" height="100">
+            <img src="./images/amovie4.jpg" width="100" height="100">
+            <img src="./images/amovie5.jpg" width="100" height="100">
+        </div>
+        <div id="roze2" class="child">
+            <img src="./images/rmovie3.jpg" width="100" height="100">
+            <img src="./images/rmovie4.jpg" width="100" height="100">
+            <img src="./images/rmovie5.jpg" width="100" height="100">
+            <img src="./images/rmovie6.jpg" width="100" height="100">
+        </div>
+        <div id="roze3" class="child">
+            <img src="./images/sfmovie1.jpg" width="100" height="100">
+            <img src="./images/sfmovie2.jpg" width="100" height="100">
+            <img src="./images/sfmovie3.jpg" width="100" height="100">
+            <img src="./images/sfmovie4.jpg" width="100" height="100">
+        </div>
+    </div>
+
+    <script>
+        const mother = document.querySelector('#mother');
+        const leftBtn = document.querySelector('#id_btn1');
+        const rightBtn = document.querySelector('#id_btn2');
+        const text = document.querySelector('#id_disp');
+        const layers = document.querySelectorAll('.child');
+        let curIndex = 0;
+        let timer = null;
+
+        const over = function(){
+            mother.style.cursor = "pointer";
+            clearTimeout(timer);
+            timer = null;
+        }
+        mother.addEventListener('mouseover', over);
+
+        const out = function(){
+            mother.style.cursor = 'default';
+            init(curIndex);
+        }
+        mother.addEventListener('mouseout', out);
+
+        const right = function(){
+            init(curIndex+1);    
+        }
+        rightBtn.addEventListener('click', right);
+
+        const left = function(){
+            init(curIndex-1);
+        }
+        leftBtn.addEventListener('click', left);
+
+        const init = function(index){
+            for(let i = 0; i < layers.length; i++){
+                layers[i].style.zIndex = 100;
+            }
+            layers[index].style.zIndex = 1000;
+            text.value = (index + 1) + "/" + layers.length;
+            curIndex = index;
+            if(index == 2){
+                index = -1;
+            }
+            timer = setTimeout(init,1000,index+1);
+        }
+
+        window.addEventListener('load',init.bind(null,0));
+    </script>
+</body>
+</html>
